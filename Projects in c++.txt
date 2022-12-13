@@ -1,0 +1,198 @@
+#include<iostream>
+#include<string>
+#include<Windows.h>
+using namespace std;
+struct stGame
+{
+	int NumberOfGame;
+	int Yourchoice;
+
+};
+int ReadRandomnumber(int From, int To)
+{
+	int random = rand() % (To - From + 1) + From;
+	return random;
+
+}
+stGame startGScreenGame(stGame &MyGame)
+{
+	
+	do
+	{
+		cout << "How many Rounds 1 to 10 ?" << endl;
+		cin >> MyGame.NumberOfGame;
+	} while (MyGame.NumberOfGame>10);
+	
+
+	return MyGame;
+}
+int ReadRandom(stGame MyGame)
+{
+	
+	int random = 0;
+
+	for (int i = 1; i <= MyGame.NumberOfGame; i++)
+	{
+		 random=ReadRandomnumber(1,3);
+	}
+	
+	return random;
+}
+void LastSecreen(stGame MyGame, int& userWin, int& computerwin, int& noOneWin)
+{
+	cout << "\t-------------------------------------------------------------------------------\n";
+	cout << "\t++++++++++++++++++++++++++++++++++++++GAME OVER+++++++++++++++++++++++++++++++++++\n";
+	cout << "\t--------------------------------------------------------------------------------------\n";
+	cout << "\t----------------------------------------[Game Resalt]-------------------------------------\n";
+	cout << "\tGAME ROUNDS = " << MyGame.NumberOfGame << endl;
+	cout << "\tplayer1 won times :" << userWin << endl;
+	cout << "\tComputer won times :" << computerwin << endl;
+	cout << "\tno one won :" << noOneWin << endl;
+	cout << "------------------------------------------------------------------------------------------------\n";
+}
+void GamePlayer(stGame MyGame)
+{
+
+	const string ComputerChoice[3] = {"stone","Paper","scissors"};
+	int k = 0, j = 0, z = 0;
+	for (int i = 1; i < MyGame.NumberOfGame + 1; i++)
+	{
+
+		do
+		{
+			cout << "Your Choice: [1]:stone, [2]:Paper ,[3]:scissors ? " << endl;
+			cin >> MyGame.Yourchoice;
+			cout << endl;
+		} while (MyGame.Yourchoice > 3);
+		cout << "--------------Raond[" << i << "]---------------\n";
+		if (MyGame.Yourchoice == 1)
+		{
+
+			int choiceComputer = ReadRandom(MyGame);
+			if (choiceComputer == 1)
+			{
+				z++;
+				cout << "Your choice:" << "stone" << endl;
+				cout << "computer choice:" << ComputerChoice[choiceComputer - 1] << endl;
+				cout << "The result: no one wins:" << endl;
+				system("Color 6");
+				
+			}
+			else if (choiceComputer == 2)
+			{
+				j++;
+				cout << "Your choice:" << "stone" << endl;
+				cout << "computer choice:" << ComputerChoice[choiceComputer - 1] << endl;
+				cout << "The result: The winer is computer:" << endl;
+				system("Color c");
+				Beep(500, 100);
+				
+			}
+			else
+			{
+				k++;
+				cout << "Your choice:" << "stone" << endl;
+				cout << "computer choice:" << ComputerChoice[choiceComputer - 1] << endl;
+				cout << "The result: The winer is user:" << endl;
+				system("Color 0");
+				
+			}
+
+		}
+
+		else if (MyGame.Yourchoice == 2)
+		{
+			int choiceComputer = ReadRandom(MyGame);
+			if (choiceComputer == 1)
+			{
+				k++;
+				cout << "Your choice:" << "Paper" << endl;
+				cout << "computer choice:" << ComputerChoice[choiceComputer - 1] << endl;
+				cout << "The result: The winer is user:" << endl;
+				system("Color 0");
+				
+			}
+			else if (choiceComputer == 2)
+			{
+				z++;
+				cout << "Your choice:" << "Paper" << endl;
+				cout << "computer choice:" << ComputerChoice[choiceComputer - 1] << endl;
+				cout << "The result: no one wener:" << endl;
+				system("Color 6");
+				
+			}
+			else
+			{
+				j++;
+				cout << "Your choice:" << "Paper" << endl;
+				cout << "computer choice:" << ComputerChoice[choiceComputer - 1] << endl;
+				cout << "The result: The winer is computer:" << endl;
+				system("Color c");
+				Beep(500, 100);
+				
+			}
+		}
+		    else 
+			{
+				int choiceComputer = ReadRandom(MyGame);
+				if (choiceComputer == 1)
+				{
+					j++;
+					cout << "Your choice:" << "scissors" << endl;
+					cout << "computer choice:" << ComputerChoice[choiceComputer - 1] << endl;
+					cout << "The result: The winer is comuter:" << endl;
+					system("Color c");
+					Beep(500, 100);
+					
+				}
+				else if (choiceComputer == 2)
+				{
+					k++;
+					cout << "Your choice:" << "scissors" << endl;
+					cout << "computer choice:" << ComputerChoice[choiceComputer - 1] << endl;
+					cout << "The reslt:The winer is user" << endl;
+				
+				}
+				else
+				{
+					z++;
+					cout << "Your choice:" << "scissors" << endl;
+					cout << "computer choice:" << ComputerChoice[choiceComputer - 1] << endl;
+					cout << "The result: no one winer" << endl;
+					system("Color 6");
+					
+				}
+			}
+		
+	}
+	LastSecreen(MyGame, z, j, k);
+}
+void Displaly()
+{
+	stGame MyGame;
+	char PlayAgin = ' ';
+	int k = 0, j = 0, z = 0;
+	srand((unsigned)time(NULL));
+	startGScreenGame(MyGame);
+	GamePlayer(MyGame);
+
+	cout << "Do You Wont Play Agin ? Press : Y" << endl;
+	cin >> PlayAgin;
+	while (PlayAgin!='y'|| PlayAgin!='Y')
+	{
+		system("cls");
+		srand((unsigned)time(NULL));
+		startGScreenGame(MyGame);
+		GamePlayer(MyGame);
+	}
+}
+
+
+int main()
+{
+
+	Displaly();
+	
+	return 0;
+
+}
